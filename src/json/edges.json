@@ -1,0 +1,32 @@
+{
+  "Alpha": {
+    "Beta": {
+      "Epsilon": {},
+      "Zeta": {
+        "Alexis": {},
+        "Justine": {},
+        "Julie": {}
+      },
+      "Eta": {},
+      "Theta": {
+        "Mu": {},
+        "Nu": {}
+      }
+    },
+    "Gamma": {
+      "Xi": {
+        "Omicron": {
+          "Enzo": {},
+          "Adrien": {},
+          "Guillaume": {},
+          "Myriam": {}
+        }
+      }
+    },
+    "Delta": {
+      "Iota": {},
+      "Kappa": {},
+      "Lambda": {}
+    }
+  }
+}
