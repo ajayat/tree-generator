@@ -132,15 +132,15 @@ private:
 };
 
 ordered_json read_json(const std::string& filename) {
-	std::ifstream jsonfile(filename);
+    std::ifstream jsonfile(filename);
     ordered_json edges;
 
-	if (jsonfile) {
+    if (jsonfile) {
         jsonfile >> edges;
-		return edges;
-	} else {
-		throw std::exception("Cannot read the file");
-	}
+        return edges;
+    } else {
+        throw std::exception("Cannot read the file");
+    }
 }
 
 void find_adj(const ordered_json& edges, const std::string& root, Dict& adj) {
@@ -152,17 +152,16 @@ void find_adj(const ordered_json& edges, const std::string& root, Dict& adj) {
 }
 
 int main() {
-	try {
+    try {
         ordered_json edges{ read_json("json/edges.json") };
-		const std::string root{ edges.begin().key()} ;
+        const std::string root{ edges.begin().key()} ;
         Dict adjacences;
-		find_adj(edges, root, adjacences);
-
-		Tree tree(adjacences);
-		tree.show(root);
+        find_adj(edges, root, adjacences);
+        // Show the tree in output console
+        Tree(adjacences).show(root);
 	}
-	catch (const std::string& msg) {
-		std::cout << msg << std::endl;
+    catch (const std::string& msg) {
+        std::cout << msg << std::endl;
 	}
 	return 0;
 }

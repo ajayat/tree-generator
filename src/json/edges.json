@@ -2,11 +2,7 @@
   "Alpha": {
     "Beta": {
       "Epsilon": {},
-      "Zeta": {
-        "Alexis": {},
-        "Justine": {},
-        "Julie": {}
-      },
+      "Zeta": {},
       "Eta": {},
       "Theta": {
         "Mu": {},
@@ -15,12 +11,7 @@
     },
     "Gamma": {
       "Xi": {
-        "Omicron": {
-          "Enzo": {},
-          "Adrien": {},
-          "Guillaume": {},
-          "Myriam": {}
-        }
+        "Omicron": {}
       }
     },
     "Delta": {
