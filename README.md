@@ -1,4 +1,4 @@
-## A beautiful C++ tree generator
+# A beautiful C++ tree generator
 
 It can be printed directly on the output console :
 ```text
