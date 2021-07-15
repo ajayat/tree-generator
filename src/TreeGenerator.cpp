@@ -91,17 +91,17 @@ private:
         return value.empty();
     }
 
-    std::string vertical_sep(const std::string& node, const uint l, const uint c) {
+    char vertical_sep(const std::string& node, const uint l, const uint c) {
         if (!node.empty()) {
             const std::vector<std::string>& brothers{ adj[parent(node)] };
             uint pos{ 0 };
             while (node != brothers[pos])
                 pos++;
             if (pos == 0)
-                return (tree[l - 1][c].empty()) ? "┌" : "─";
+                return (tree[l - 1][c].empty()) ? char(218) : char(196);
             if (pos == adj[parent(node)].size() - 1)
-                return "└";
-            return (tree[l - 1][c].empty()) ? "├" : "┼";
+                return char(192);
+            return (tree[l - 1][c].empty()) ? char(195) : char(197);
         }
         auto rend{ tree[l].rend() };
         auto end{ tree[l].end() };
@@ -109,8 +109,8 @@ private:
         auto after{ std::find_if_not(tree[l].begin() + c + 1, end, is_empty) };
 
         if (prev != rend && after != end && parent(*prev) == parent(*after))
-            return (tree[l - 1][c].empty()) ? "│" : "┤";
-        return " ";
+            return (tree[l - 1][c].empty()) ? char(179): char(180);
+        return ' ';
     }
 
     std::string format(const std::string& elt, const uint c, const uint l) {
@@ -126,7 +126,7 @@ private:
         if (elt.empty())
             return vsep + std::string(pad + 1, ' ');
         for (int i = 0; i < pad - elt.size(); i++)
-            vsep += "─";
+            vsep += char(196);
         return vsep + " " + elt;
     }
 };

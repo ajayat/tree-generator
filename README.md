@@ -15,7 +15,7 @@ Alpha ┼ Gamma ────── Xi ─ Omicron
               └─ Lambda
 ```
 
-You can define relations between nodes on the 
+You can define relations between nodes in the 
 [`edges.json`](https://github.com/Adridri24/TreeGenerator/blob/master/src/json/edges.json)
 file.
 ```json
