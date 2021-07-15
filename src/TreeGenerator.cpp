@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <exception>
 #include <json.hpp>
+#include <filesystem>
 
 using ordered_json = nlohmann::basic_json<nlohmann::ordered_map>;
 typedef std::map<const std::string, std::vector<std::string>> Dict;
@@ -19,7 +20,7 @@ public:
         tree.resize(H);
         for (auto& line : tree)
             line.resize(B);
-        find_coords(root);
+        fill(root);
 
         for (auto i = 0u; i < B; i++) {
             std::vector<std::string> line;
@@ -66,13 +67,13 @@ private:
         return height;
     }
 
-    void find_coords(const std::string& root, uint offset=0, int depth=0) {
+    void fill(const std::string& root, uint offset=0, int depth=0) {
         tree[depth][offset + half_breadth(root)] = root;
         auto quotient{ adj[root].size() / 2};
         auto remainder{ adj[root].size() & 1};
 
         for (auto i = 0; i < adj[root].size(); i++) {
-            find_coords(adj[root][i], offset, depth + 1);
+            fill(adj[root][i], offset, depth + 1);
             offset += breadth(adj[root][i]);
             if ((i == quotient - 1) && (remainder == 0))
                 offset += 1;
@@ -143,20 +144,31 @@ ordered_json read_json(const std::string& filename) {
     }
 }
 
-void find_adj(const ordered_json& edges, const std::string& root, Dict& adj) {
+void adj_from_json(const ordered_json& edges, const std::string& root, Dict& adj) {
 
     for (const auto& item : edges[root].items()) {
         adj[root].emplace_back(item.key());
-        find_adj(edges[root], item.key(), adj);
+        adj_from_json(edges[root], item.key(), adj);
     }
+}
+
+void adj_from_directory(const std::filesystem::path& root, Dict& adj) {
+    for (const auto& p: std::filesystem::recursive_directory_iterator(root))
+        adj[p.path().parent_path().filename().string()]
+            .emplace_back(p.path().filename().string());
 }
 
 int main() {
     try {
         ordered_json edges{ read_json("json/edges.json") };
-        const std::string root{ edges.begin().key()} ;
+        const auto& root{ edges.begin().key() };
         Dict adjacences;
-        find_adj(edges, root, adjacences);
+
+        // Or recursive list of files in given directory:
+        // adj_from_directory(std::filesystem::current_path(), adjacences);
+        // Or from a json
+        adj_from_json(edges, root, adjacences);
+
         // Show the tree in output console
         Tree(adjacences).show(root);
 	}
